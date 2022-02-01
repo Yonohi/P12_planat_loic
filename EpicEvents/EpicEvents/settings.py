@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'EpicEvents.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "EpicEvents",
+        "NAME": "EpicEvents2",
         "USER": "Yonohi",
         "PASSWORD": "Postgresql",
         "HOST": "localhost",
@@ -129,4 +129,3 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'client-list'
-LOGOUT_REDIRECT_URL = 'login'
