@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user
-from .models import UserSale, UserSupport, UserManagement
+from .models import UserTeam
 from django.contrib.auth.models import User
 
 
@@ -41,7 +41,7 @@ class IsLogged(BasePermission):
 class IsUserSale(BasePermission):
     def has_permission(self, request, view):
         user = get_user(request)
-        if user in UserSale.objects.all():
+        if user.team == "Sale":
             return True
         else:
             return False
