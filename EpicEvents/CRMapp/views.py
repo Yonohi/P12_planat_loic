@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from authentication.permissions import IsLogged, IsSafe
+from authentication.permissions import IsLogged
 from .serializers import ClientSerializer, ContractSerializer, EventSerializer
 from .models import Client, Contract, Event
-from authentication.permissions import IsUserSale
+from authentication.permissions import IsUserSale, IsUserSupport, IsUserManagement
 
 
 #Utililsation de | (maj+option+L)

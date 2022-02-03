@@ -5,13 +5,6 @@ from .models import UserTeam
 from django.contrib.auth.models import User
 
 
-# a changer pas vraiment bien
-class IsSafe(BasePermission):
-    def has_permission(self, request, view):
-        if request.method in SAFE_METHODS:
-            return True
-
-
 class IsLogged(BasePermission):
     message = 'Vous n\'avez pas la permission d\'effectuer cette action. ' \
               'Vous n\'êtes pas connecté.'
@@ -40,12 +33,45 @@ class IsLogged(BasePermission):
 
 class IsUserSale(BasePermission):
     def has_permission(self, request, view):
-        user = get_user(request)
-        if user.team == "Sale":
+        if request.method is 'POST':
+            return False
+        else:
             return True
+    def has_object_permission(self, request, view, obj):
+        if request.user.team == "Sale":
+            if request.method in SAFE_METHODS:
+                return True
+            else:
+                # Ne marche pas
+                if obj.sales_contact == request.user:
+                    return True
+                else:
+                    return False
         else:
             return False
 
 
 class IsUserSupport(BasePermission):
-    pass
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        else:
+            return False
+    def has_object_permission(self, request, view, obj):
+        if request.user.team == "Support":
+            return True
+        else:
+            return False
+
+
+class IsUserManagement(BasePermission):
+    def has_permission(self, request, view):
+        if request.method in SAFE_METHODS:
+            return True
+        else:
+            return False
+    def has_object_permission(self, request, view, obj):
+        if request.user.team == "Management":
+            return True
+        else:
+            return False

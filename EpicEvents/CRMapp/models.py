@@ -4,7 +4,10 @@ from authentication.models import UserTeam
 class EventStatus(models.Model):
 	status = models.CharField(max_length=25)
 
+
 class Client(models.Model):
+	STATUS_CHOICES = [('Potentiel', 'Potentiel'),
+					  ('Existant', 'Existant')]
 	first_name = models.CharField(max_length=25)
 	last_name = models.CharField(max_length=25)
 	email = models.EmailField(max_length=100)
@@ -14,7 +17,7 @@ class Client(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField()
 	sales_contact = models.ForeignKey(UserTeam, on_delete=models.CASCADE)
-	payment_due = models.DateTimeField()
+	client_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
 
 class Contract(models.Model):
@@ -24,6 +27,7 @@ class Contract(models.Model):
 	date_updated = models.DateTimeField()
 	status = models.BooleanField()
 	amount = models.FloatField()
+	payment_due = models.DateTimeField()
 
 
 class Event(models.Model):

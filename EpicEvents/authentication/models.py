@@ -1,10 +1,6 @@
-from django.contrib.auth.models import AbstractBaseUser, AbstractUser, User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.validators import UnicodeUsernameValidator
 
-
-# Mettre proxy a True permet de créer des modèles mandataire de la classe mère
 
 class UserTeam(AbstractUser):
 	TEAM_ROLE = [('Management', 'Gestion'),
