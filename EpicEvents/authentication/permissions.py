@@ -2,6 +2,8 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user
 from .models import UserTeam
+from .serializers import UserTeamSerializer
+from CRMapp.models import Client, Contract, Event
 from django.contrib.auth.models import User
 
 
@@ -33,18 +35,28 @@ class IsLogged(BasePermission):
 
 class IsUserSale(BasePermission):
     def has_permission(self, request, view):
-        if request.method is 'POST':
-            return False
-        else:
+        if request.user.team == "Sale":
             return True
+        else:
+            return False
     def has_object_permission(self, request, view, obj):
         if request.user.team == "Sale":
             if request.method in SAFE_METHODS:
                 return True
             else:
-                # Ne marche pas
-                if obj.sales_contact == request.user:
-                    return True
+                # Trouver comment faire pour les events
+                if type(obj) == Client or type(obj) == Contract:
+                    if obj.sales_contact == request.user:
+                        return True
+                    else:
+                        return False
+                # Vérifier si ça fonctionne
+                elif type(obj) == Event:
+                    client = obj.client
+                    if client.sales_contact == request.user:
+                        return True
+                    else:
+                        return False
                 else:
                     return False
         else:
@@ -52,22 +64,43 @@ class IsUserSale(BasePermission):
 
 
 class IsUserSupport(BasePermission):
+    # Les requetes POST ne sont gérés que par has_permission
+    # (logique car dans vue de liste et non pas de détail)
     def has_permission(self, request, view):
-        if request.method in SAFE_METHODS:
-            return True
+        if request.user.team == "Support":
+            if request.method == 'POST':
+                return False
+            else:
+                return True
         else:
             return False
+
     def has_object_permission(self, request, view, obj):
         if request.user.team == "Support":
-            return True
+            if request.method in SAFE_METHODS:
+                return True
+            else:
+                if type(obj) == Event:
+                    if obj.support_contact == request.user:
+                        return True
+                    else:
+                        return False
+                else:
+                    return False
         else:
             return False
 
 
 class IsUserManagement(BasePermission):
     def has_permission(self, request, view):
-        if request.method in SAFE_METHODS:
-            return True
+        if request.user.team == "Management":
+            if request.method == 'POST':
+                if view.serializer_class == UserTeamSerializer:
+                    return True
+                else:
+                    return False
+            else:
+                return True
         else:
             return False
     def has_object_permission(self, request, view, obj):

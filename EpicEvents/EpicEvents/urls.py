@@ -16,13 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from rest_framework import routers
 from django.urls import path, include
-from CRMapp import views
+from CRMapp import views as CRM_views
+from authentication import views as auth_views
 #from django.contrib.auth.views import LoginView, LogoutView
 
 router = routers.DefaultRouter()
-router.register(r'client', views.ClientViewSet)
-router.register(r'contract', views.ContractViewSet)
-router.register(r'event', views.EventViewSet)
+router.register(r'client', CRM_views.ClientViewSet)
+router.register(r'contract', CRM_views.ContractViewSet)
+router.register(r'event', CRM_views.EventViewSet)
+router.register(r'user', auth_views.UserTeamViewSet)
 
 urlpatterns = [
     #path('login/', LoginView.as_view(template_name='login.html'),name='login'),
