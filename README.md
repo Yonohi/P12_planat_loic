@@ -1,25 +1,15 @@
-Important
-
-Créer sa base de donnée postgresql  
-Aller dans Pgadmin,
-Créer un nouvel utilisateur avec Login/Group roles en lui donnant les permissions adaptées,
-Créer une nouvelle base de données via Database en spécifiant un nom et un password,
-puis dans notre fichier settings (dans notre projet)
-intégrer les noms et mot de passe dans DATABASES
-
-faire python3 manage.py makemigrations <nomapp> (pour les 2)
-puis migrate
-ensuite createsuperuser
-
 pour voir les tables aller dans la bd puis schemas/public/tables et selectionner celle 
 qui nous interesse puis cliquer sur l'icone de tableau 
 # P12_planat_loic
-<center> <h2>Epic Events</h2> </center>
+<p align="center" style="background-color:#33475b">
+<a href="https://user.oc-static.com/upload/2020/09/22/16007804386673_P10.png" class="oc-imageLink oc-imageLink--disabled"><img src="https://user.oc-static.com/upload/2020/09/22/16007804386673_P10.png" alt="Logo Epic Events"></a>
+</p>
+<center> <h2>OpenClassrooms Project</h2> </center>
 
 ## Description
 
 Project Django using Django REST Framework and the database Postgresql.  
-The goal is to have a CRM where users could see clients, contracts and Events.
+The goal is to have a CRM where users could see clients, contracts and Events with different permissions.
 ***
 ## Requirements
 Python 3 : https://www.python.org/downloads/
@@ -27,12 +17,12 @@ Python 3 : https://www.python.org/downloads/
 Postgresql : https://www.postgresql.org/download/
 
 POSTMAN : https://www.postman.com
-
+***
 ## Creation of the database Postgresql
 
 In Pgadmin you have to create a new user in Login/Group (can change according to version)   
 After that, create a new database with a name, a password and a name of owner (the user you have created before).  
-
+***
 ## Installation
 
 In the terminal, move to the directory where you want to install the repository with the command line:
@@ -59,7 +49,6 @@ DATABASES = {
 }
 ```
 
-
 Create the environment:
 `python3 -m venv env`
 
@@ -77,10 +66,14 @@ Now, install packages from requirements.txt
 Go into the folder named LITReview
 `cd EpicEvents`
 
+Now you have to apply migrations with
+`python3 manage.py migrate`
+
 Run in local
 `python3 manage.py runserver`
 
 Now you can test with POSTMAN the collection P12_EpicEvents
+***
 ## How it works
 ### POSTMAN:
 To signup:
@@ -113,7 +106,7 @@ http://127.0.0.1:8000/api/projects/{id}/users/
 ```
 For more information about endpoint, see the documentation on postman:
 https://documenter.getpostman.com/view/16930251/UVJeGGdh
-
+***
 ## Need a superuser?
 You have to go to the project folder and type
 ```
@@ -123,9 +116,11 @@ Now give your username, mail and password, and it's done. The admin page is reac
 ```
 http://127.0.0.1:8000/admin/
 ```
+***
 ## Information about database
-
+***
 ## Conclusion
 It was interesting to learn how to use Django REST Framework and to improve my knowledge about security.
+***
 ## Author
 Loïc Planat

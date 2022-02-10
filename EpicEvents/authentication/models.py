@@ -9,3 +9,4 @@ class UserTeam(AbstractUser):
 	team = models.CharField(max_length=40, choices=TEAM_ROLE)
 	class Meta:
 		verbose_name = "Utilisateur team"
+		default_permissions = ()

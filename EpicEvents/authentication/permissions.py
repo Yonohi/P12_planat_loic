@@ -19,20 +19,6 @@ class IsLogged(BasePermission):
             return True
 
 
-# a modifier
-"""class IsUserManagement(BasePermission):
-    def has_permission(self, request, view):
-        user = get_user(request)
-        if type(user) is UserManagement:
-            if request.method in SAFE_METHODS:
-                return True
-            else:
-                return False
-        else:
-            return False
-    pass"""
-
-
 class IsUserSale(BasePermission):
     def has_permission(self, request, view):
         if request.user.team == "Sale":

@@ -22,6 +22,7 @@ from authentication import views as auth_views
 
 router = routers.DefaultRouter()
 router.register(r'client', CRM_views.ClientViewSet)
+router.register(r'my_clients', CRM_views.MyClientsViewSet, basename='my_clients')
 router.register(r'contract', CRM_views.ContractViewSet)
 router.register(r'event', CRM_views.EventViewSet)
 router.register(r'user', auth_views.UserTeamViewSet)
