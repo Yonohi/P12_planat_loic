@@ -10,13 +10,18 @@ def create_groups(apps, schema_migration):
 
     # Récupération de modèles
     UserTeam = apps.get_model('authentication', 'UserTeam')
+    EventStatus = apps.get_model('CRMapp', 'EventStatus')
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
 
+    # Création des statuts d'événement
+    EventStatus.objects.create(status='En traitement')
+    EventStatus.objects.create(status='Fini')
+
     # Création d'un utilisateur pour chaque futur groupe
-    user_sale = UserTeam.objects.create(username='testsale', password='yugidomino', team='Sale')
-    user_support = UserTeam.objects.create(username='testsupport', password='yugidomino', team='Support')
-    user_management = UserTeam.objects.create(username='testmanagement', password='yugidomino', team='Management')
+    user_sale = UserTeam.objects.create_user(username='testsale', password='yugidomino', team='Sale')
+    user_support = UserTeam.objects.create_user(username='testsupport', password='yugidomino', team='Support')
+    user_management = UserTeam.objects.create_user(username='testmanagement', password='yugidomino', team='Management')
 
     # Liste des permissions possibles
     view_client = Permission.objects.get(codename='view_client')
@@ -54,7 +59,26 @@ def create_groups(apps, schema_migration):
     management.permissions.set(safe_permissions)
 
     # Permissions spécifiques à l'équipe Vente
-    sale.permissions.add(add_client, add_contract)
+    sale.permissions.add(add_client,
+                         change_client,
+                         add_contract,
+                         change_contract,
+                         add_event,
+                         change_event)
+
+    # Permissions spécifiques à l'équipe Support
+    support.permissions.add(change_event)
+
+    # Permissions spécifiques à l'équipe Gestion
+    management.permissions.add(add_client,
+                               change_client,
+                               delete_client,
+                               add_contract,
+                               change_contract,
+                               delete_contract,
+                               add_event,
+                               change_event,
+                               delete_event)
 
     for user in UserTeam.objects.all():
         if user.team == 'Sale':

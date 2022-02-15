@@ -21,11 +21,15 @@ from authentication import views as auth_views
 #from django.contrib.auth.views import LoginView, LogoutView
 
 router = routers.DefaultRouter()
-router.register(r'client', CRM_views.ClientViewSet)
+router.register(r'client', CRM_views.ClientViewSet, basename='client')
 router.register(r'my_clients', CRM_views.MyClientsViewSet, basename='my_clients')
 router.register(r'contract', CRM_views.ContractViewSet)
+router.register(r'my_contracts', CRM_views.MyContractsViewSet, basename='my_contracts')
 router.register(r'event', CRM_views.EventViewSet)
+router.register(r'my_events', CRM_views.MyEventsViewSet, basename='my_events')
 router.register(r'user', auth_views.UserTeamViewSet)
+
+# Ajouter les event sans support pour les management
 
 urlpatterns = [
     #path('login/', LoginView.as_view(template_name='login.html'),name='login'),

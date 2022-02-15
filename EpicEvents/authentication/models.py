@@ -6,7 +6,10 @@ class UserTeam(AbstractUser):
 	TEAM_ROLE = [('Management', 'Gestion'),
 				 ('Support', 'Support'),
 				 ('Sale', 'Vente')]
-	team = models.CharField(max_length=40, choices=TEAM_ROLE)
+	team = models.CharField(max_length=40, choices=TEAM_ROLE, blank=True)
 	class Meta:
 		verbose_name = "Utilisateur team"
 		default_permissions = ()
+
+	def __str__(self):
+		return self.username
