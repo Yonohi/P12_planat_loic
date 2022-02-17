@@ -1,5 +1,3 @@
-pour voir les tables aller dans la bd puis schemas/public/tables et selectionner celle 
-qui nous interesse puis cliquer sur l'icone de tableau 
 # P12_planat_loic
 <p align="center" style="background-color:#33475b">
 <a href="https://user.oc-static.com/upload/2020/09/22/16007804386673_P10.png" class="oc-imageLink oc-imageLink--disabled"><img src="https://user.oc-static.com/upload/2020/09/22/16007804386673_P10.png" alt="Logo Epic Events"></a>
@@ -72,40 +70,10 @@ Now you have to apply migrations with
 Run in local
 `python3 manage.py runserver`
 
-Now you can test with POSTMAN the collection P12_EpicEvents
-***
-## How it works
-### POSTMAN:
-To signup:
-```
-http://127.0.0.1:8000/signup/
-```
-At this address you can log in :
-```
-http://127.0.0.1:8000/login/
-```
-Make a refresh because the time limit for the token has passed:
-```
-http://127.0.0.1:8000/api/token/refresh/
-```
-If you want to see the different projects go to : 
-```
-http://127.0.0.1:8000/api/projects/
-```
-or the issues of the project (if you are contributor of the project) :
-```
-http://127.0.0.1:8000/api/projects/{id}/issues/
-```
-or the comments of an issue (if you are contributor of the project) :
-```
-http://127.0.0.1:8000/api/projects/{id}/issues/{id}/comments/
-```
-To see contributors of the project :
-```
-http://127.0.0.1:8000/api/projects/{id}/users/
-```
-For more information about endpoint, see the documentation on postman:
-https://documenter.getpostman.com/view/16930251/UVJeGGdh
+Now you can test with POSTMAN the collection P12_EpicEvents.
+
+For more information about endpoints: https://documenter.getpostman.com/view/16930251/UVkiSdwL
+
 ***
 ## Need a superuser?
 You have to go to the project folder and type
@@ -117,10 +85,8 @@ Now give your username, mail and password, and it's done. The admin page is reac
 http://127.0.0.1:8000/admin/
 ```
 ***
-## Information about database
-***
 ## Conclusion
-It was interesting to learn how to use Django REST Framework and to improve my knowledge about security.
+Very interesting project, create groups and allow permissions by the admin zone was fun. I learnt more about Django Rest and how to use specific database.
 ***
 ## Author
 Loïc Planat

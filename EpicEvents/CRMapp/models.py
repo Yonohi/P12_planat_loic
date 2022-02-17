@@ -56,7 +56,7 @@ class Event(models.Model):
 	event_status = models.ForeignKey(EventStatus, on_delete=models.CASCADE)
 	attendees = models.IntegerField()
 	event_date = models.DateTimeField()
-	notes = models.CharField(max_length=100, blank=True)
+	notes = models.TextField(blank=True)
 
 	def __str__(self):
 		return f"Event {self.id} ({str(self.client)})"
