@@ -1,5 +1,5 @@
 # P12_planat_loic
-<p align="center" style="background-color:#33475b">
+<p align="center" style="background-color:#48C5EA">
 <a href="https://user.oc-static.com/upload/2020/09/22/16007804386673_P10.png" class="oc-imageLink oc-imageLink--disabled"><img src="https://user.oc-static.com/upload/2020/09/22/16007804386673_P10.png" alt="Logo Epic Events"></a>
 </p>
 <center> <h2>OpenClassrooms Project</h2> </center>
