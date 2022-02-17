@@ -19,9 +19,9 @@ def create_groups(apps, schema_migration):
     EventStatus.objects.create(status='Fini')
 
     # Création d'un utilisateur pour chaque futur groupe
-    user_sale = UserTeam.objects.create_user(username='testsale', password='yugidomino', team='Sale')
-    user_support = UserTeam.objects.create_user(username='testsupport', password='yugidomino', team='Support')
-    user_management = UserTeam.objects.create_user(username='testmanagement', password='yugidomino', team='Management')
+    user_sale = UserTeam.objects.create_user(username='testsale', password='djangosuper', team='Sale')
+    user_support = UserTeam.objects.create_user(username='testsupport', password='djangosuper', team='Support')
+    user_management = UserTeam.objects.create_user(username='testmanagement', password='djangosuper', team='Management')
 
     # Liste des permissions possibles
     view_client = Permission.objects.get(codename='view_client')

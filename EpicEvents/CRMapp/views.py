@@ -15,10 +15,13 @@ from authentication.permissions import IsLogged, \
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    # OrderingFilter me permet d'utiliser ordering et ainsi ordonner mon contenu
+    # DjangoFilterBackend me permet d'utiliser des filtres dans l'url
+    # (via filterset_fields)
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     ordering = ['-date_updated']
     filterset_fields = '__all__'
-    # la permission DjangoModelPermission nous permet d'utiliser les permissions en admin
+    # La permission DjangoModelPermission nous permet d'utiliser les permissions en admin
     permission_classes = [IsAuthenticated,
                           IsLogged,
                           DjangoModelPermissions,
@@ -29,8 +32,6 @@ class EventViewSet(viewsets.ModelViewSet):
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    # OrderingFilter me permet d'utiliser ordering et ainsi ordonner mon contenu
-    # DjangoFilterBackend me permet d'utiliser des filtres (via filterset_fields)
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     ordering = ['last_name']
     filterset_fields = '__all__'
@@ -54,6 +55,9 @@ class ContractViewSet(viewsets.ModelViewSet):
 
 class MyClientsViewSet(viewsets.ModelViewSet):
     serializer_class = MyClientsSerializer
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    ordering = ['last_name']
+    filterset_fields = '__all__'
     permission_classes = [IsAuthenticated,
                           IsLogged,
                           DjangoModelPermissions,
@@ -77,6 +81,9 @@ class MyClientsViewSet(viewsets.ModelViewSet):
 
 class MyContractsViewSet(viewsets.ModelViewSet):
     serializer_class = ContractSerializer
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    ordering = ['-date_updated']
+    filterset_fields = '__all__'
     permission_classes = [IsAuthenticated,
                           IsLogged,
                           DjangoModelPermissions,
@@ -88,6 +95,9 @@ class MyContractsViewSet(viewsets.ModelViewSet):
 
 class MyEventsViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    ordering = ['-date_updated']
+    filterset_fields = '__all__'
     permission_classes = [IsAuthenticated,
                           IsLogged,
                           DjangoModelPermissions,

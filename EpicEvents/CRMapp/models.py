@@ -31,7 +31,7 @@ class Client(models.Model):
 	client_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
 	def __str__(self):
-		return f"{self.first_name} {self.last_name}"
+		return f"id:{self.id} {self.first_name} {self.last_name}"
 
 
 class Contract(models.Model):
@@ -56,7 +56,7 @@ class Event(models.Model):
 	event_status = models.ForeignKey(EventStatus, on_delete=models.CASCADE)
 	attendees = models.IntegerField()
 	event_date = models.DateTimeField()
-	notes = models.CharField(max_length=100)
+	notes = models.CharField(max_length=100, blank=True)
 
 	def __str__(self):
 		return f"Event {self.id} ({str(self.client)})"
