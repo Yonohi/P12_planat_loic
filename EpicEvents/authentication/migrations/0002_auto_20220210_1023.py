@@ -23,6 +23,7 @@ def create_groups(apps, schema_migration):
     user_sale = UserTeam.objects.create_user(username='testsale', password='djangosuper', team='Sale')
     user_support = UserTeam.objects.create_user(username='testsupport', password='djangosuper', team='Support')
     user_management = UserTeam.objects.create_user(username='testmanagement', password='djangosuper', team='Management')
+    false_user_support = UserTeam.objects.create_user(username='NoSupport', password='djangosuper', team='Support')
 
     # Liste des permissions possibles
     view_client = Permission.objects.get(codename='view_client')

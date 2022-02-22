@@ -5,16 +5,16 @@ from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, AllowAny, DjangoModelPermissions
 from .serializers import ClientSerializer, ContractSerializer, \
-    EventSerializer, MyClientsSerializer
+    EventSerializer, EventSerializerWithoutSupport, MyClientsSerializer
 from .models import Client, Contract, Event
 from authentication.permissions import IsLogged, \
     IsTeamSale, IsTeamSupport, IsTeamManagement, EventInProgress
+from authentication.models import UserTeam
 
 
 #Utililsation de | (maj+option+L)
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
-    serializer_class = EventSerializer
     # OrderingFilter me permet d'utiliser ordering et ainsi ordonner mon contenu
     # DjangoFilterBackend me permet d'utiliser des filtres dans l'url
     # (via filterset_fields)
@@ -28,6 +28,27 @@ class EventViewSet(viewsets.ModelViewSet):
                           EventInProgress,
                           IsTeamSale|IsTeamSupport|IsTeamManagement]
 
+    def get_serializer_class(self):
+        """
+        Return the class to use for the serializer.
+        Defaults to using `self.serializer_class`.
+
+        You may want to override this if you need to provide different
+        serializations depending on the incoming request.
+
+        (Eg. admins get full serialization, others get basic serialization)
+        """
+        if self.request.user.team == 'Management':
+            serializer_class = EventSerializer
+        else:
+            serializer_class = EventSerializerWithoutSupport
+        # assert self.serializer_class is not None, (
+        #         "'%s' should either include a `serializer_class` attribute, "
+        #         "or override the `get_serializer_class()` method."
+        #         % self.__class__.__name__
+        # )
+
+        return serializer_class
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
@@ -79,6 +100,7 @@ class MyClientsViewSet(viewsets.ModelViewSet):
                         headers=headers)
 
 
+
 class MyContractsViewSet(viewsets.ModelViewSet):
     serializer_class = ContractSerializer
     filter_backends = [OrderingFilter, DjangoFilterBackend]
@@ -105,3 +127,15 @@ class MyEventsViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Event.objects.filter(support_contact=user)
+
+
+class EventsWithoutSupportViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.filter(support_contact=UserTeam.objects.get(username='NoSupport'))
+    serializer_class = EventSerializer
+    filter_backends = [OrderingFilter, DjangoFilterBackend]
+    ordering = ['-date_updated']
+    filterset_fields = '__all__'
+    permission_classes = [IsAuthenticated,
+                          IsLogged,
+                          DjangoModelPermissions,
+                          IsTeamManagement]

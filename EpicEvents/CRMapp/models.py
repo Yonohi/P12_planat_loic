@@ -52,7 +52,7 @@ class Event(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
 	# Attention pas de on delete cascade enfin je pense
-	support_contact = models.ForeignKey(UserTeam, limit_choices_to={'team': 'Support'}, on_delete=models.CASCADE)
+	support_contact = models.ForeignKey(UserTeam, blank=True, null=True, limit_choices_to={'team': 'Support'}, on_delete=models.CASCADE)
 	event_status = models.ForeignKey(EventStatus, on_delete=models.CASCADE)
 	attendees = models.IntegerField()
 	event_date = models.DateTimeField()

@@ -25,9 +25,14 @@ router.register(r'client', CRM_views.ClientViewSet, basename='client')
 router.register(r'my_clients', CRM_views.MyClientsViewSet, basename='my_clients')
 router.register(r'contract', CRM_views.ContractViewSet)
 router.register(r'my_contracts', CRM_views.MyContractsViewSet, basename='my_contracts')
-router.register(r'event', CRM_views.EventViewSet)
+router.register(r'event', CRM_views.EventViewSet, basename='event')
 router.register(r'my_events', CRM_views.MyEventsViewSet, basename='my_events')
 router.register(r'user', auth_views.UserTeamViewSet)
+router.register(r'user_sale', auth_views.UserTeamSaleViewSet)
+router.register(r'user_support', auth_views.UserTeamSupportViewSet)
+router.register(r'user_management', auth_views.UserTeamManagementViewSet)
+router.register(r'events_without_support', CRM_views.EventsWithoutSupportViewSet)
+
 
 # Ajouter les event sans support pour les management
 
