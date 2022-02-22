@@ -18,6 +18,8 @@ from rest_framework import routers
 from django.urls import path, include
 from CRMapp import views as CRM_views
 from authentication import views as auth_views
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView)
 #from django.contrib.auth.views import LoginView, LogoutView
 
 router = routers.DefaultRouter()
@@ -37,11 +39,13 @@ router.register(r'events_without_support', CRM_views.EventsWithoutSupportViewSet
 # Ajouter les event sans support pour les management
 
 urlpatterns = [
-    #path('login/', LoginView.as_view(template_name='login.html'),name='login'),
-    #path('logout/', LogoutView.as_view(), name='logout'),
+    # path('login/', LoginView.as_view(template_name='login.html'),name='login'),
+    # path('logout/', LogoutView.as_view(), name='logout'),
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
     # Nous donne le loginview et logoutview
     path('', include('rest_framework.urls')),
+    # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
     
