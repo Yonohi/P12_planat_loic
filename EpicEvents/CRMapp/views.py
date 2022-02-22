@@ -130,7 +130,6 @@ class MyEventsViewSet(viewsets.ModelViewSet):
 
 
 class EventsWithoutSupportViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.filter(support_contact=UserTeam.objects.get(username='NoSupport'))
     serializer_class = EventSerializer
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     ordering = ['-date_updated']
@@ -139,3 +138,5 @@ class EventsWithoutSupportViewSet(viewsets.ModelViewSet):
                           IsLogged,
                           DjangoModelPermissions,
                           IsTeamManagement]
+    def get_queryset(self):
+        return Event.objects.filter(support_contact=UserTeam.objects.get(username='NoSupport'))

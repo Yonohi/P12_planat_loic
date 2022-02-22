@@ -37,11 +37,11 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class EventSerializerWithoutSupport(serializers.ModelSerializer):
+    support_contact = serializers.SlugRelatedField(slug_field='username', read_only=True)
     event_status = serializers.SlugRelatedField(slug_field='status', queryset=EventStatus.objects.all())
     class Meta:
         model = Event
         fields = ['id', 'client', 'date_created', 'date_updated', 'support_contact', 'event_status', 'attendees', 'event_date', 'notes']
-        read_only_fields = ['support_contact']
     def create(self, validated_data):
         validated_data['support_contact'] = UserTeam.objects.get(username='NoSupport')
         event = Event.objects.create(**validated_data)

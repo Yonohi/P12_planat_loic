@@ -33,7 +33,7 @@ router.register(r'user', auth_views.UserTeamViewSet)
 router.register(r'user_sale', auth_views.UserTeamSaleViewSet)
 router.register(r'user_support', auth_views.UserTeamSupportViewSet)
 router.register(r'user_management', auth_views.UserTeamManagementViewSet)
-router.register(r'events_without_support', CRM_views.EventsWithoutSupportViewSet)
+router.register(r'events_without_support', CRM_views.EventsWithoutSupportViewSet, basename='events_without_support')
 
 
 # Ajouter les event sans support pour les management

@@ -1,6 +1,7 @@
 from django.db import models
 from authentication.models import UserTeam
 from django.core.validators import RegexValidator
+from django.core.validators import MinValueValidator
 
 
 phone_regex = RegexValidator(regex=r'^\d{9,15}$', message="Please enter a phone number.")
@@ -40,7 +41,7 @@ class Contract(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
 	status = models.BooleanField()
-	amount = models.FloatField()
+	amount = models.FloatField(validators=[MinValueValidator(0)])
 	payment_due = models.DateTimeField()
 
 	def __str__(self):
@@ -54,7 +55,7 @@ class Event(models.Model):
 	# Attention pas de on delete cascade enfin je pense
 	support_contact = models.ForeignKey(UserTeam, blank=True, null=True, limit_choices_to={'team': 'Support'}, on_delete=models.CASCADE)
 	event_status = models.ForeignKey(EventStatus, on_delete=models.CASCADE)
-	attendees = models.IntegerField()
+	attendees = models.IntegerField(validators=[MinValueValidator(0)])
 	event_date = models.DateTimeField()
 	notes = models.TextField(blank=True)
 
