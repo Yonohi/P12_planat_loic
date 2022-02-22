@@ -85,6 +85,10 @@ Now give your username, mail and password, and it's done. The admin page is reac
 http://127.0.0.1:8000/admin/
 ```
 ***
+## Activate JWT
+You have to uncomment the code in 'REST_FRAMEWORK' in the settings file.
+Do the same for the urlpattern (the last two) in the files urls.py from the folder EpicEvents and activate all the keys 'Autorization' in headers (Postman).
+***
 ## Conclusion
 Very interesting project, create groups and allow permissions by the admin zone was fun. I learnt more about Django Rest and how to use specific database.
 ***
