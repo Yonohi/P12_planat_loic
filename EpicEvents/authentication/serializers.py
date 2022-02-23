@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import  UserTeam
+from .models import UserTeam
 import django.contrib.auth.password_validation as validators
 from django.contrib.auth.models import Group
 import logging

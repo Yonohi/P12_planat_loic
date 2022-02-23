@@ -1,10 +1,8 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user
-from .models import UserTeam
 from .serializers import UserTeamSerializer
 from CRMapp.models import Client, Contract, Event
-from django.contrib.auth.models import User
 import datetime
 
 
@@ -74,6 +72,7 @@ class IsTeamManagement(BasePermission):
             return True
         else:
             return False
+
     def has_object_permission(self, request, view, obj):
         if request.user.team == "Management":
             return True
@@ -104,6 +103,7 @@ class IsUserSale(BasePermission):
             return True
         else:
             return False
+
     def has_object_permission(self, request, view, obj):
         if request.user.team == "Sale":
             if request.method in SAFE_METHODS:
@@ -168,6 +168,7 @@ class IsUserManagement(BasePermission):
                 return True
         else:
             return False
+
     def has_object_permission(self, request, view, obj):
         if request.user.team == "Management":
             return True
