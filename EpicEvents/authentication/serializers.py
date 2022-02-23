@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .models import  UserTeam
 import django.contrib.auth.password_validation as validators
 from django.contrib.auth.models import Group
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class UserTeamSerializer(serializers.ModelSerializer):
@@ -12,6 +15,7 @@ class UserTeamSerializer(serializers.ModelSerializer):
 
     # create_user pour le hash
     def create(self, validated_data):
+        # logger.warning('Test warning')
         user = UserTeam.objects.create_user(**validated_data)
         vente = Group.objects.get(name='Vente')
         support = Group.objects.get(name='Support')

@@ -3,6 +3,9 @@ from rest_framework import serializers
 from authentication.models import UserTeam
 from .models import Client, Contract, Event, EventStatus
 from authentication.serializers import UserTeamSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ClientSerializer(serializers.ModelSerializer):
@@ -22,6 +25,7 @@ class ContractSerializer(serializers.ModelSerializer):
         fields = ['id', 'sales_contact', 'client', 'date_created', 'date_updated', 'status', 'amount', 'payment_due']
     # On met automatiquement à Existant le statut du client ayant un contrat
     def create(self, validated_data):
+        # logger.warning('Test warning')
         contract = Contract.objects.create(**validated_data)
         client = Client.objects.get(id=validated_data['client'].id)
         client.client_status = 'Existant'

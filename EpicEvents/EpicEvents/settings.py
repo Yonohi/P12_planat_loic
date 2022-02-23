@@ -150,3 +150,42 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=20),
 }
+
+# On étend ici la configuration de la journalisation par défaut.
+# Rappel:
+# -------les correspondances des journaliseurs (logger) déterminent quels enregistrements sont envoyés à quels gestionnaires
+# -------les gestionnaires (handler) déterminent ce qu’ils font des enregistrements qu’ils reçoivent
+# -------les filtres, ajoutent du contrôle supplémentaire sur le transfert des enregistrements, et même les modifier sur place
+# -------les formateurs, convertissent les objets LogRecord en une chaîne ou toute autre forme qui soit lisible par les humains ou un autre système
+LOGGING = {
+    'version': 1,
+    # Paramètre important, si True désactive la config des loggers par défaut
+    'disable_existing_loggers': False,
+    'handlers': {
+            'file': {
+                'class': 'logging.FileHandler',
+                'filename': 'security.log',
+                'formatter': 'verbose',
+            },
+    },
+    'loggers': {
+            'CRMapp': {
+                'level': 'DEBUG',
+                'handlers': ['file'],
+            },
+            'authentication': {
+                'level': 'DEBUG',
+                'handlers': ['file'],
+            },
+    },
+    'formatters': {
+            'verbose': {
+                'format': '{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}',
+                'style': '{',
+            },
+            'simple': {
+                'format': '{levelname} {message}',
+                'style': '{',
+            },
+    },
+}
