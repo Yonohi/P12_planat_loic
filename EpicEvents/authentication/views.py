@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import UserTeam
 from .serializers import UserTeamSerializer
-from .permissions import IsLogged, IsUserManagement, IsTeamManagement
+from .permissions import IsLogged, IsTeamManagement
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 

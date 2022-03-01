@@ -31,7 +31,7 @@ class Client(models.Model):
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
 	# limit_choices_to nous permet ici de limiter les possibilités à l'équipe de Vente
-	sales_contact = models.ForeignKey(UserTeam, limit_choices_to={'team': 'Sale'}, on_delete=models.CASCADE)
+	sales_contact = models.ForeignKey(UserTeam, limit_choices_to={'team': 'Sale'}, on_delete=models.PROTECT)
 	client_status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
 	def __str__(self):
@@ -39,7 +39,7 @@ class Client(models.Model):
 
 
 class Contract(models.Model):
-	sales_contact = models.ForeignKey(UserTeam, limit_choices_to={'team': 'Sale'}, on_delete=models.CASCADE)
+	sales_contact = models.ForeignKey(UserTeam, limit_choices_to={'team': 'Sale'}, on_delete=models.PROTECT)
 	client = models.ForeignKey(Client, on_delete=models.CASCADE)
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
@@ -55,9 +55,8 @@ class Event(models.Model):
 	client = models.ForeignKey(Client, on_delete=models.CASCADE)
 	date_created = models.DateTimeField(auto_now_add=True)
 	date_updated = models.DateTimeField(auto_now=True)
-	# Attention pas de on delete cascade enfin je pense
-	support_contact = models.ForeignKey(UserTeam, blank=True, null=True, limit_choices_to={'team': 'Support'}, on_delete=models.CASCADE)
-	event_status = models.ForeignKey(EventStatus, on_delete=models.CASCADE)
+	support_contact = models.ForeignKey(UserTeam, blank=True, null=True, limit_choices_to={'team': 'Support'}, on_delete=models.PROTECT)
+	event_status = models.ForeignKey(EventStatus, on_delete=models.PROTECT)
 	attendees = models.IntegerField(validators=[MinValueValidator(0)])
 	event_date = models.DateTimeField()
 	notes = models.TextField(blank=True)

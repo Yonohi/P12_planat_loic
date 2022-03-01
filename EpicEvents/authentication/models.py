@@ -12,7 +12,6 @@ class UserTeam(AbstractUser):
 
 	class Meta:
 		verbose_name = "Utilisateur team"
-		default_permissions = ()
 
 	def __str__(self):
 		return self.username
